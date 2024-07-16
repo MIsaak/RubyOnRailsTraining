@@ -7,8 +7,6 @@ services:
     volumes:
       - ../:/course
       - ./config/zsh/.zshrc:/root/.zshrc:z
-      - ~/.ssh:/etc/ssh
-      - ~/.gitconfig:/root/.gitconfig:z
     environment:
       - RAILS_ENV=development
       - RACK_ENV=development
@@ -16,7 +14,6 @@ services:
       - '4000:4000'
     depends_on:
       - ruby_mysql
-    #entrypoint: 'sleep infinity'
     entrypoint:
       [
         'zsh',
