@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+  ruby_course:
+    container_name: ruby_course
+    build: .
+    volumes:
+      - ../:/course
+      - ./config/zsh/.zshrc:/root/.zshrc:z
+      - ~/.ssh:/etc/ssh
+      - ~/.gitconfig:/root/.gitconfig:z
+    environment:
+      - RAILS_ENV=development
+      - RACK_ENV=development
+    ports:
+      - '4000:4000'
+    depends_on:
+      - ruby_mysql
+    #entrypoint: 'sleep infinity'
+    entrypoint:
+      [
+        'zsh',
+        '-c',
+        'cd /course && bundle install && rails s -p 4000 -b 0.0.0.0',
+      ]
+  ruby_mysql:
+    container_name: ruby_mysql
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ruby_course
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+    ports:
+      - '3306:3306'
+    volumes:
+      - ruby-db:/var/lib/mysql
+    command:
+      [
+        '--character-set-server=utf8mb4',
+        '--collation-server=utf8mb4_unicode_ci',
+        '--default-authentication-plugin=mysql_native_password',
+      ]
+volumes:
+  ruby-db:
