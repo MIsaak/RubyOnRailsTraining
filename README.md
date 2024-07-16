@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on Rails Training Docker Container
 
-Things you may want to cover:
+To start the container, run:
+docker compose -f docker/docker-compose.yml up -d
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+To enter the container, run: 
+docker exec -it -w /course ruby_course /bin/zsh
